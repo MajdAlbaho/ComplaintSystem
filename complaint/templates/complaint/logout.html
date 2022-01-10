@@ -1,0 +1,6 @@
+{% extends 'complaint/loggedout_base.html' %}
+{% block content %}
+<h1><b>Logout is successful.</h1>
+<a  id="atag" href="{% url 'login' %}">Login</a>
+<a  id="atag" href="{% url 'signup' %}">Register</a>
+{% endblock %}

@@ -1,0 +1,128 @@
+{% extends 'complaint/base.html' %} {% block content %}
+<br><br><br> {% if zero_complaints %}
+<p>Uh-oh! There are no complaints!you can register your complaint here!</p>
+<a href="{% url 'register_complaint' %}">Register Here</a> {% else %}
+<h3>
+    {% if is_admin %} Complaints {% else %} Your Complaints {% endif %}
+</h3>
+
+<div class="table">
+    {% if is_admin %} {% else %}
+    <div id="complaint_counts">
+        <label><b>Total Registerd:</b></label>
+        <input type="text" value="{{ complaint_count }}" style="border:none;" readonly>
+        <label><b>Total Pending:</b></label>
+        <input type="text" value="{{ total_pending }}" style="border:none;" readonly>
+        <label><b>Total Closed:</b></label>
+        <input type="text" value="{{ total_closed }}" style="border:none;" readonly>
+    </div>
+    {% endif %}
+    <br>
+    <table class="complaint" id="view">
+        <tr>
+            <th onclick="sorttable(0)">ID</th>
+            <th onclick="sorttable(1)">Info</th>
+            <th onclick="sorttable(2)">Type</th>
+            <th onclick="sorttable(3)">Reg.date</th>
+            <th onclick="sorttable(4)">Status</th>
+            <th onclick="sorttable(5)"></th>
+        </tr>
+
+        {% for complaint in complaints %}
+        <tr>
+            <td>{{ complaint.id }}</td>
+            <td>{{ complaint.title }}</td>
+            <form method='get' action="{{view_url}}">
+                <td><button id="filter-category" value="{{ complaint.category }}" name="filter_by_category">{{ complaint.category }}</button></td>
+            </form>
+            <td>{{ complaint.created_date }}</td>
+            <td>{{ complaint.status }}</td>
+            <td><a href="{% url 'view_complaint' complaint.id %}"> View |</a> {% if not is_admin %}<a href="{% url 'edit_complaint' complaint.id %}"> Edit |</a>{% endif %}
+                <a href="{% url 'delete_complaint' complaint.id %}" class="delete" data-confirm="Are you sure to delete this item?"> Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% if show_back_btn %}
+    <form method="get" action="{{view_url}}" style="position: relative;margin-left:45%;">
+        <button type="submit">back</button>
+    </form>
+    {% endif %}
+</div>
+{% endif %}
+<script type="text/javascript">
+    function sorttable(n) {
+        if (n === 0) {
+            window.location.reload();
+            return
+        };
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById("view");
+        switching = true;
+        dir = "asc";
+        while (switching) {
+
+            switching = false;
+            rows = table.rows;
+
+            for (i = 1; i < (rows.length - 1); i++) {
+
+                shouldSwitch = false;
+
+                x = rows[i].getElementsByTagName("TD")[n];
+                y = rows[i + 1].getElementsByTagName("TD")[n];
+
+                if (dir == "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (dir == "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+                if (Number(x.innerHTML) > Number(y.innerHTML)) {
+
+                    shouldSwitch = true;
+                    break;
+                }
+            }
+            if (shouldSwitch) {
+
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+
+                switchcount++;
+            } else {
+
+                if (switchcount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
+        }
+    }
+
+    var deleteLinks = document.querySelectorAll('.delete');
+
+    for (var i = 0; i < deleteLinks.length; i++) {
+        deleteLinks[i].addEventListener('click', function(event) {
+            event.preventDefault();
+
+            var choice = confirm(this.getAttribute('data-confirm'));
+
+            if (choice) {
+                window.location.href = this.getAttribute('href');
+            }
+        });
+    }
+</script>
+{% endblock %} {% if request.user.profile.is_admin %} {% block footer %}
+<div class="footer-adm">
+    <p>&copy;Copyrights Majd Albaho.</p>
+</div>
+{% endblock %} {% endif %}

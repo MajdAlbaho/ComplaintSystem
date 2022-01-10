@@ -1,0 +1,71 @@
+{% extends 'complaint/base.html' %} {% block title %} {{ complaint.title }} {% endblock %} {% block content %}
+<div class="container1" id="print">
+    <div class="formbox2">
+        <form>
+            <div class="co">
+
+                {% if complaint.is_anonymous == True %}
+                <p>This is anonymous</p>
+                {% else %}
+                <p>Username: {{ request.user.username }}</p>
+                <p>user email: {{ request.user.email }}</p>
+                {% endif %}
+
+                <form class="db">
+                    <label for="title"><b>Complaint Subject: </b></label>
+                    <input type="text" name="" value={ {complaint.title }} readonly><br></br>
+                    <label id="l" for="type">Related to:</label>
+                    <input type="text" name="" value={{complaint.category }} readonly><br></br>
+                    <!--<input type="text" name="" readonly><br></br>-->
+                    <!--	<label id="l" for="subject">Complaint Subject:</label><br></br> -->
+                    <label id="l" for="description"> Description:</label><br></br>
+                    <textarea id="ta" cols="50" rows="5" placeholder="describe.." style="width: 414px; height: 92px;" readonly>{{complaint.description}}</textarea><br></br><br>
+            </div>
+            <div class="right">
+                <label id="l" for="datetime">Date of Submit:</label>
+                <textarea cols="30" rows="2" style="width: 271px; height: 17px;" readonly>{{complaint.created_date }}</textarea><br></br>
+                <label id="l" for="stat">Status:</label>
+                <input type="text" name="" value={{complaint.status}}><br><br/> {% if complaint.photo %}
+                <img src="{{ complaint.photo.url }}"> {% endif %} {% for remark in remarks %}
+                <label for="remarks">Remarks:</label><br>
+                <textarea class="hide-remarks-border" id="ta" cols="50" rows="6">{{ remark.text }}</textarea>
+                <p>date: {{ remark.date }}</p>
+                {% endfor %}
+                <br><br><br>
+                </form>
+                {% if request.user.profile.is_admin %}
+                <form class="db" method="post" action="{% url 'view_complaint' complaint.id %}">
+                    {% csrf_token %}
+                    <label for="status">Status</label>
+                    <select name="status">
+		{% for status in status_choices %}
+		<option value="{{ status.0 }}"
+		{% if status.0 == complaint.status %} selected{% endif %}>
+		{{ status.1 }}</option>
+		{% endfor %}
+	</select><br><br/>
+                    <label for="remarks">Remarks:</label><br>
+                    <textarea id="ta" cols="50" rows="6" name=remark></textarea>
+                    <button class="update-button" type="submit" style="width: 290.84,height:54 ;;" value="submit">Update</button>
+                </form>
+            </div>
+            {% endif %}
+            <div>
+                <button onclick="printDiv('print')" class="example-screen" id="print-btn">Print</button>
+            </div>
+    </div>
+</div>
+</div>
+</div>
+
+<script>
+    function printDiv(print) {
+        var printContents = document.getElementById("print").innerHTML;
+        var originalContents = document.body.innerHTML;
+        originalContents = window.open("");
+        originalContents.document.write(printContents);
+        originalContents.print();
+        originalContents.close();
+    }
+</script>
+{% endblock %}

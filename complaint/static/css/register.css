@@ -1,0 +1,227 @@
+* {
+  box-sizing: border-box;
+}
+.navbar {
+  width: 100%;
+  background-color: #1e5e77;
+  overflow: auto;
+  line-height: 50px;
+}
+
+.navbar a {
+  float: right;
+  padding: 12px;
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.navbar a:hover {
+  background-color: black;
+}
+
+.active {
+  background-color: slategrey;
+}
+
+@media screen and (max-width: 500px) {
+  .navbar a {
+    float: none;
+    display: block;
+  }
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+
+.complaint {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 70%;
+  position:relative;
+  left:15%;
+}
+
+.complaint td, .complaint th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+.complaint tr:nth-child(even){background-color: #f2f2f2;}
+
+.complaint tr:hover {background-color: #ddd;}
+
+.complaint th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #4caf50;
+  color: white;
+  cursor: pointer;
+}
+
+/* register complaint css */
+body{
+  margin:0;
+  padding:0;
+  background:none;
+  font-family:sans-serif;
+  }
+  
+
+  ul {
+  list-style-type: none;
+   
+  padding: 12px;
+     color: white;
+     text-decoration: none;
+     font-size: 17px;
+  }
+  
+  li{
+  float:left;
+  }
+  
+  .comp{
+  font-size:30px;
+  }
+  
+  .navbar a {
+    float: right;
+    padding: 12px;
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+  }
+  
+  .navbar a:hover {
+    background-color: black;
+  }
+  
+  @media screen and (max-width: 500px) {
+    .navbar a {
+      float: none;
+      display: block;
+    }
+  }
+
+
+  .hide-remarks-border{
+    border-radius: 0%;
+    border: white;
+  }
+  .dbms{
+    font-size: 20px;
+    border:1px;
+    box-shadow:5px 10px 8px #888888;
+  }
+  
+  .formbox1{
+  align-items: center;
+  width:100%;
+  height: 800px;
+  padding:1% 30%;
+  box-sizing: border-box;
+  background:white;
+  box-shadow:1px 10px 40px rgba(0,0,0,.5);
+  
+  }
+  
+  .formbox input[type="text"],
+  .formbox input[type="password"]
+  {
+  border:none;
+  border-bottom: 1px solid black;
+  outline:none;
+  height:40px;
+  
+  }
+
+#filter-category {
+width:100%; !important;
+}
+  button {
+    background-color: #4caf50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 20%;
+  }
+  
+  button:hover {
+    opacity: 0.8;
+  }
+  .formbox input[type="submit"]
+{
+border:none;
+border-radius: 4px;
+outline:none;
+width: 30%;
+
+height:40px;
+color:#fff;
+background:black;
+cursor:pointer;
+}
+
+.formbox input[type="submit"]:hover
+{
+background:#4CAF50;
+}
+.formbox label{
+font-weight: bold;
+}
+.container
+{
+border-radius: 10px;
+width: 1600px;
+height: 800px;
+background:white;
+margin:0 auto;
+border:2px solid #fff;
+box-shadow:0 15px 40px rgba(250,250,250,0);
+
+}
+
+h3{
+margin-top: 1px;
+text-align:center;
+font-size:30px;
+color: black;
+}
+
+.welcome-txt {
+font-size: 20px;
+color: white;
+padding-top:3%;
+margin: 0px;
+}
+
+footer p{
+padding-bottom: 0%;
+text-align: center;
+color: black;
+}
+.title{
+text-align:center;
+padding:0px 0 20px;
+font-size:200%;
+}
+.container{
+  font-family: serif;
+}
+
+
+.example-print {
+display: none;
+}
+@media print {
+.example-screen {
+   display: none;
+}
+.example-print {
+   display: block;
+}
